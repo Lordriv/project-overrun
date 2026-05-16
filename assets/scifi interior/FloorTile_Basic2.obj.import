@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://carf7565gt8g"
+path="res://.godot/imported/FloorTile_Basic2.obj-83b48d37d592a378ca4c4cf4c0c37363.mesh"
+
+[deps]
+
+files=["res://.godot/imported/FloorTile_Basic2.obj-83b48d37d592a378ca4c4cf4c0c37363.mesh"]
+
+source_file="res://assets/scifi interior/FloorTile_Basic2.obj"
+dest_files=["res://.godot/imported/FloorTile_Basic2.obj-83b48d37d592a378ca4c4cf4c0c37363.mesh", "res://.godot/imported/FloorTile_Basic2.obj-83b48d37d592a378ca4c4cf4c0c37363.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

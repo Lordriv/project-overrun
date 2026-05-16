@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://c41iduep6upw5"]
+
+[ext_resource type="Script" uid="uid://bh3s0uib2exlp" path="res://characters/character_body_3d.gd" id="1_54qew"]
+[ext_resource type="Script" uid="uid://d0gatlmlfvote" path="res://scripts/health_component.gd" id="2_qqr4u"]
+[ext_resource type="Script" uid="uid://dls4xltrjojn6" path="res://scripts/player_aggro_emitter.gd" id="3_3fwhk"]
+[ext_resource type="PackedScene" uid="uid://btb74cogww36l" path="res://scenes/Character.fbx" id="4_mdkfl"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dkjbp"]
+
+[node name="Character" type="Node3D" unique_id=629489097]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=2079930990]
+script = ExtResource("1_54qew")
+
+[node name="Character" parent="CharacterBody3D" unique_id=217019521 instance=ExtResource("4_mdkfl")]
+transform = Transform3D(-0.99999994, 0, -8.742277e-08, 0, 0.7528534, 0, 8.742277e-08, 0, -0.99999994, 0, -0.7385957, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1821419294]
+transform = Transform3D(1, 0, 0, 0, 0.7143012, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_dkjbp")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CharacterBody3D" unique_id=1828072750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+spring_length = 4.0
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/SpringArm3D" unique_id=944655535]
+
+[node name="HealthComponent" type="Node" parent="CharacterBody3D" unique_id=889973704]
+script = ExtResource("2_qqr4u")
+bleedout_time = 20.0
+metadata/_custom_type_script = "uid://d0gatlmlfvote"
+
+[node name="PlayerAggroEmitter" type="Node" parent="CharacterBody3D" unique_id=1837995212]
+script = ExtResource("3_3fwhk")
+metadata/_custom_type_script = "uid://dls4xltrjojn6"

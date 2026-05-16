@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c0513nkawmqve"]
+
+[ext_resource type="Script" uid="uid://8t3ykm1y8kx7" path="res://scripts/ui/interaction_prompt.gd" id="1_4elof"]
+
+[node name="InteractionPrompt" type="Label3D" unique_id=722906170]
+billboard = 1
+no_depth_test = true
+text = "[E] Interact"
+script = ExtResource("1_4elof")

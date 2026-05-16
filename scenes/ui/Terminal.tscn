@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bmaoa1k2ca37w"]
+
+[ext_resource type="Script" uid="uid://6n8n3x46vmuc" path="res://scripts/world/terminal.gd" id="1_tcarn"]
+[ext_resource type="PackedScene" uid="uid://c0513nkawmqve" path="res://scenes/ui/InteractionPrompt.tscn" id="2_jy1st"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tcarn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tcarn"]
+shading_mode = 0
+albedo_color = Color(1, 0.50026315, 0.98752135, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jy1st"]
+
+[node name="Terminal" type="Area3D" unique_id=1246593666 node_paths=PackedStringArray("interaction_prompt")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_tcarn")
+interaction_prompt = NodePath("InteractionPrompt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2093306663]
+mesh = SubResource("BoxMesh_tcarn")
+surface_material_override/0 = SubResource("StandardMaterial3D_tcarn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1353077273]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("BoxShape3D_jy1st")
+
+[node name="InteractionPrompt" parent="." unique_id=722906170 instance=ExtResource("2_jy1st")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+prompt_text = "[E] Tech Terminal"
+
+[editable path="InteractionPrompt"]

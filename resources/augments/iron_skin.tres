@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AugmentMaxHP" format=3 uid="uid://uk3bd2rfulbf"]
+
+[ext_resource type="Script" uid="uid://ct0tncqy7yeni" path="res://scripts/augments/augment_max_hp.gd" id="1_bwy48"]
+
+[resource]
+script = ExtResource("1_bwy48")
+id = &"iron_skin"
+display_name = "Iron Skin"
+description_upside = "+50 Max HP"
+description_downside = "Slower Movement - TODO"
+metadata/_custom_type_script = "uid://ct0tncqy7yeni"

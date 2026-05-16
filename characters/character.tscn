@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://c41iduep6upw5"]
+
+[ext_resource type="Script" uid="uid://bh3s0uib2exlp" path="res://scripts/character/character_body_3d.gd" id="1_54qew"]
+[ext_resource type="PackedScene" uid="uid://c0jn6w8dccd10" path="res://animations/dwarf/dwarf.fbx" id="2_mdkfl"]
+[ext_resource type="Script" uid="uid://d0gatlmlfvote" path="res://scripts/components/health_component.gd" id="2_qqr4u"]
+[ext_resource type="Script" uid="uid://dls4xltrjojn6" path="res://scripts/components/player_aggro_emitter.gd" id="3_3fwhk"]
+[ext_resource type="Animation" uid="uid://df1ivohc1xe2n" path="res://animations/dwarf/idle.res" id="3_qulg7"]
+[ext_resource type="Animation" uid="uid://cfkvjw55ced1s" path="res://animations/dwarf/idle_2.res" id="4_4kffy"]
+[ext_resource type="Animation" uid="uid://cbinq1yn7htkr" path="res://animations/dwarf/idle_3.res" id="5_bnq0n"]
+[ext_resource type="Animation" uid="uid://vgmfgeaaa56e" path="res://animations/dwarf/jumping.res" id="6_hgjqb"]
+[ext_resource type="Animation" uid="uid://dunji703yftj4" path="res://animations/dwarf/running.res" id="7_3h56x"]
+[ext_resource type="Animation" uid="uid://0cv63kwrlcd5" path="res://animations/dwarf/walking.res" id="8_i1355"]
+[ext_resource type="Script" uid="uid://b4h48uqobtuj5" path="res://scripts/damage/weapons/weapon_component.gd" id="11_4kffy"]
+[ext_resource type="PackedScene" uid="uid://d04ygithx6e8w" path="res://scenes/ui/crosshair.tscn" id="12_bnq0n"]
+[ext_resource type="Script" uid="uid://ckkale4fes1ao" path="res://scripts/damage/weapons/weapon_holder.gd" id="12_hgjqb"]
+[ext_resource type="Texture2D" uid="uid://w2nabrmgjy3t" path="res://assets/rifle/uv_palette.png" id="13_i1355"]
+[ext_resource type="ArrayMesh" uid="uid://bk24fxl8qimem" path="res://assets/rifle/fusil_6.obj" id="14_3h56x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qci4v"]
+albedo_texture = ExtResource("13_i1355")
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qulg7"]
+_data = {
+&"idle": ExtResource("3_qulg7"),
+&"idle_2": ExtResource("4_4kffy"),
+&"idle_3": ExtResource("5_bnq0n"),
+&"jumping": ExtResource("6_hgjqb"),
+&"running": ExtResource("7_3h56x"),
+&"walking": ExtResource("8_i1355")
+}
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dkjbp"]
+height = 0.8441186
+radius = 0.2939453
+
+[node name="Character" type="Node3D" unique_id=629489097 groups=["player"]]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=2079930990 groups=["player"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_54qew")
+
+[node name="Dwarf" parent="CharacterBody3D" unique_id=1333933895 instance=ExtResource("2_mdkfl")]
+transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, 0, -0.4681371, 0)
+
+[node name="Skeleton3D" parent="CharacterBody3D/Dwarf" index="0" unique_id=1306292300]
+bones/3/rotation = Quaternion(3.469447e-18, 0, 0, 1)
+bones/8/position = Vector3(-4.891276e-11, 0.089652516, 8.5549573e-10)
+bones/10/position = Vector3(-7.529002e-11, 0.17962492, -2.1898783e-10)
+bones/12/rotation = Quaternion(0.051508877, -1.7370293e-17, 0, 0.99867254)
+bones/13/rotation = Quaternion(-0.09498115, 1.1326912e-17, 1.5580072e-25, 0.9954791)
+bones/16/position = Vector3(0.00011300558, 0.031989835, 1.1961765e-10)
+bones/16/rotation = Quaternion(0.0928851, 1.742255e-18, -2.0907066e-17, 0.9956768)
+bones/17/rotation = Quaternion(-0.017028477, -3.4699503e-18, -1.3879801e-17, 0.999855)
+bones/20/position = Vector3(5.540883e-05, 0.030858727, 4.3514595e-11)
+bones/20/rotation = Quaternion(0.029795771, 1.2930438e-26, 5.206482e-18, 0.999556)
+bones/21/rotation = Quaternion(0.05199898, 3.474147e-18, -5.2112205e-18, 0.99864715)
+bones/24/position = Vector3(-1.4616719e-05, 0.029318385, -7.136492e-11)
+bones/24/rotation = Quaternion(-0.0047778715, -6.938973e-18, 0, 0.99998856)
+bones/25/rotation = Quaternion(0.009192653, 5.2043905e-18, 1.3878373e-17, 0.99995774)
+bones/29/position = Vector3(4.092802e-10, 0.07944065, 1.1474783e-09)
+bones/30/position = Vector3(1.02246864e-10, 0.17962661, 4.197776e-10)
+bones/32/rotation = Quaternion(0.055503625, 1.0424411e-17, -7.7667904e-26, 0.9984585)
+bones/33/position = Vector3(0.003374188, 0.033000614, -4.5591644e-10)
+bones/33/rotation = Quaternion(-0.015730878, -6.1637384e-33, 0, 0.99987626)
+bones/36/rotation = Quaternion(0.039339464, -2.604101e-18, 6.94427e-18, 0.9992259)
+bones/37/rotation = Quaternion(-0.045130588, -8.682464e-19, -4.851705e-27, 0.9989811)
+bones/40/position = Vector3(-4.4949855e-05, 0.034753222, 2.6191696e-10)
+bones/40/rotation = Quaternion(0.040990762, -2.3763999e-17, 1.09813553e-16, 0.9991595)
+bones/41/rotation = Quaternion(0.035063025, 4.339477e-19, 0, 0.9993851)
+bones/44/position = Vector3(-0.00021398898, 0.02930137, 1.3722927e-10)
+bones/44/rotation = Quaternion(0.039985787, 1.7361121e-18, 1.3888897e-17, 0.9992003)
+bones/45/position = Vector3(5.1609466e-05, 0.024565853, -3.7289544e-10)
+bones/45/rotation = Quaternion(-0.007035338, 6.939066e-18, -6.939066e-18, 0.99997526)
+bones/48/position = Vector3(-9.731788e-11, 0.1863908, -1.5985066e-10)
+bones/49/position = Vector3(8.6639355e-11, 0.19024716, 4.7961277e-11)
+bones/50/position = Vector3(9.1684355e-11, 0.11672273, 2.862779e-09)
+bones/53/position = Vector3(-2.97381e-10, 0.18638374, -1.847365e-10)
+bones/54/position = Vector3(-2.5965154e-11, 0.19025375, -4.7575187e-11)
+bones/55/position = Vector3(-2.9775843e-10, 0.11404482, -4.9368754e-09)
+
+[node name="righthand" type="BoneAttachment3D" parent="CharacterBody3D/Dwarf/Skeleton3D" index="2" unique_id=1544193830]
+transform = Transform3D(-0.053504735, -0.9951726, 0.08227247, -0.009058677, -0.08190346, -0.9965991, 0.9985264, -0.054067973, -0.00463276, -0.38072923, -0.0034245998, 0.003289115)
+bone_name = "mixamorig_RightHand"
+bone_idx = 30
+
+[node name="Fusil6" type="MeshInstance3D" parent="CharacterBody3D/Dwarf/Skeleton3D/righthand" unique_id=1582397557]
+transform = Transform3D(-0.021532226, 0.14612342, -0.026158523, -0.0040114536, -0.026995424, -0.14749622, -0.14839205, -0.020473322, 0.0077830097, 0.046143733, 0.1723316, 0.030692235)
+material_override = SubResource("StandardMaterial3D_qci4v")
+mesh = ExtResource("14_3h56x")
+
+[node name="AnimationPlayer" parent="CharacterBody3D/Dwarf" index="1" unique_id=266289533]
+libraries/dwarf = SubResource("AnimationLibrary_qulg7")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CharacterBody3D" unique_id=1828072750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9777333, 1.2, -1.4284616)
+spring_length = 4.0
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/SpringArm3D" unique_id=944655535]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.019896984, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1821419294]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.3715518, 0)
+shape = SubResource("CylinderShape3D_dkjbp")
+
+[node name="Muzzle" type="Marker3D" parent="CharacterBody3D" unique_id=1192972777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19254255, 0.5571972, -0.67204165)
+
+[node name="weapon_rifle" type="Node3D" parent="CharacterBody3D" unique_id=2137941584 node_paths=PackedStringArray("muzzle", "camera")]
+script = ExtResource("11_4kffy")
+spread_degrees = 0.1
+spread_degrees_vertical = 0.1
+firing_chevron_offset = 6.0
+muzzle = NodePath("../Muzzle")
+camera = NodePath("../SpringArm3D/Camera3D")
+
+[node name="weapon_shotgun" type="Node3D" parent="CharacterBody3D" unique_id=618404882 node_paths=PackedStringArray("muzzle", "camera")]
+script = ExtResource("11_4kffy")
+fire_rate = 1.5
+projectile_damage = 8.0
+spread_degrees = 5.0
+spread_degrees_vertical = 1.5
+pellets_per_shot = 8
+firing_chevron_offset = 18.0
+magazine_size = 12
+reload_duration = 2.0
+muzzle = NodePath("../Muzzle")
+camera = NodePath("../SpringArm3D/Camera3D")
+
+[node name="HealthComponent" type="Node" parent="CharacterBody3D" unique_id=889973704]
+script = ExtResource("2_qqr4u")
+bleedout_time = 20.0
+metadata/_custom_type_script = "uid://d0gatlmlfvote"
+
+[node name="PlayerAggroEmitter" type="Node" parent="CharacterBody3D" unique_id=1837995212]
+script = ExtResource("3_3fwhk")
+metadata/_custom_type_script = "uid://dls4xltrjojn6"
+
+[node name="WeaponHolder" type="Node" parent="CharacterBody3D" unique_id=1284047424 node_paths=PackedStringArray("slot_1", "slot_2")]
+script = ExtResource("12_hgjqb")
+slot_1 = NodePath("../weapon_rifle")
+slot_2 = NodePath("../weapon_shotgun")
+
+[node name="Crosshair" parent="." unique_id=1016930889 instance=ExtResource("12_bnq0n")]
+
+[editable path="CharacterBody3D/Dwarf"]

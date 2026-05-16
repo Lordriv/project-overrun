@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cqaqfu6ns0b47"
+path="res://.godot/imported/Door_Single.obj-08c40633153f703601eacdc081aaca9d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Door_Single.obj-08c40633153f703601eacdc081aaca9d.mesh"]
+
+source_file="res://assets/scifi interior/Door_Single.obj"
+dest_files=["res://.godot/imported/Door_Single.obj-08c40633153f703601eacdc081aaca9d.mesh", "res://.godot/imported/Door_Single.obj-08c40633153f703601eacdc081aaca9d.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

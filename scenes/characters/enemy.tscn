@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://cfb4gtyvhmwj5"]
+
+[ext_resource type="Script" uid="uid://drwmmpj16su8t" path="res://scripts/enemy/enemy.gd" id="1_4ra3w"]
+[ext_resource type="Script" uid="uid://d0gatlmlfvote" path="res://scripts/components/health_component.gd" id="1_md0e3"]
+[ext_resource type="Script" uid="uid://coovtevapqdna" path="res://scripts/components/aggro_component.gd" id="2_4ra3w"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2qkhh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3gvst"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_55jtl"]
+material = SubResource("StandardMaterial3D_3gvst")
+
+[node name="Enemy" type="CharacterBody3D" unique_id=818739520]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_4ra3w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=539706281]
+shape = SubResource("CapsuleShape3D_2qkhh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=567789956]
+mesh = SubResource("CapsuleMesh_55jtl")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1301648742]
+script = ExtResource("1_md0e3")
+max_hp = 10.0
+max_shield = 0.0
+armor = 0.0
+shield_regen_rate = 5.0
+regen_delay = 1.0
+bleedout_time = 0.0
+metadata/_custom_type_script = "uid://d0gatlmlfvote"
+
+[node name="AggroComponent" type="Node" parent="." unique_id=399636683]
+script = ExtResource("2_4ra3w")
+metadata/_custom_type_script = "uid://coovtevapqdna"

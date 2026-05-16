@@ -1,0 +1,26 @@
+# Godot 4+ editor cache
+.godot/
+
+# Platform export build folders
+/android/
+/ios/
+/web/
+
+# Your build outputs (the build/ folder with .exe, .pck)
+build/
+*.exe
+*.pck
+*.zip
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log

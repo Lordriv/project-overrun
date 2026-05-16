@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://p1bia0qtl8jc"]
+
+[ext_resource type="Script" uid="uid://cqjh5dmq1itqx" path="res://scripts/world/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="AudioStream" uid="uid://bikkyggieno5k" path="res://audio/menu/Ambient 2.mp3" id="2_ekxnf"]
+
+[node name="MainMenu" type="Control" unique_id=436252745]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="Background" type="ColorRect" parent="." unique_id=364528235]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+
+[node name="AccentShape" type="Polygon2D" parent="." unique_id=211438605]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1296724822]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=1597388924]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+text = "Play"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=1591797710]
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1823654377]
+layout_mode = 2
+text = "Quit"
+
+[node name="Ambient2" type="AudioStreamPlayer" parent="." unique_id=1225174219]
+stream = ExtResource("2_ekxnf")
+autoplay = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1829659141]
+current = true

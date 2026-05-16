@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://087fy0iv07nb"
+path="res://.godot/imported/SmallWindows_Wall_SideA.obj-1dab7fa3bef628a87c5408077bb3a50a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/SmallWindows_Wall_SideA.obj-1dab7fa3bef628a87c5408077bb3a50a.mesh"]
+
+source_file="res://assets/scifi interior/SmallWindows_Wall_SideA.obj"
+dest_files=["res://.godot/imported/SmallWindows_Wall_SideA.obj-1dab7fa3bef628a87c5408077bb3a50a.mesh", "res://.godot/imported/SmallWindows_Wall_SideA.obj-1dab7fa3bef628a87c5408077bb3a50a.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
