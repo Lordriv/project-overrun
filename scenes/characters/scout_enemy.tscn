@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cv8mfg3q2j4no"]
+
+[ext_resource type="Script" uid="uid://cx4r8hnv2q1ym" path="res://scripts/enemy/scout_enemy.gd" id="1_scout"]
+[ext_resource type="Script" uid="uid://d0gatlmlfvote" path="res://scripts/components/health_component.gd" id="2_scout"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_scout"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_scout"]
+albedo_color = Color(0, 0.8, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_scout"]
+material = SubResource("StandardMaterial3D_scout")
+
+[node name="ScoutEnemy" type="CharacterBody3D" unique_id=112233445]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_scout")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=223344556]
+shape = SubResource("CapsuleShape3D_scout")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=334455667]
+mesh = SubResource("CapsuleMesh_scout")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=445566778]
+script = ExtResource("2_scout")
+max_hp = 30.0
+max_shield = 0.0
+armor = 0.0
+shield_regen_rate = 0.0
+regen_delay = 999.0
+bleedout_time = 0.0
+metadata/_custom_type_script = "uid://d0gatlmlfvote"

@@ -1,0 +1,538 @@
+﻿Project OVERRUN — GDD v0.2
+PROJECT OVERRUN
+Game Design Document
+v0.3 — Working Draft
+A co-op extraction roguelite
+1–4 players · 5–20 min runs · Built in Godot
+________________
+
+
+How to read this document
+This is a living design document. Sections are tagged with a status to indicate how settled the design is:
+* LOCKED — designed and agreed; changing requires explicit revision.
+* DRAFT — proposed direction, not yet pressure-tested.
+* PLACEHOLDER — known section, design not yet started.
+* OPEN — in active discussion.
+Anywhere you see [ TO DESIGN: ... ] is a flag for an unresolved sub-question that needs an answer before the section can be locked.
+________________
+
+
+1. Vision
+STATUS: LOCKED
+	
+
+1.1 Pitch
+OVERRUN is a co-op extraction roguelite for 1–4 players, built in Godot. A squad drops into a broken world, fights escalating waves of void creatures, unlocks tech between waves to grow absurd builds, and decides when to extract — or how deep to push before they wipe.
+1.2 Run shape
+Runs target ~20 minutes to complete a map's primary objective, but squads can stay indefinitely past completion for more loot, more tech, and harder waves. The only loss state is squad wipe, which costs all run loot. Characters persist across runs in a DnD-style fashion — bound weapons, attachments, and cosmetics carry over — but the loot inside any single run is temporary.
+1.3 Emotional loop
+Find weird loot → discover a synergy → push an absurd build as far as it'll go → lose it spectacularly → queue up again. The build is the reward, not the loot. Loot is sandbox material for build experimentation.
+1.4 Tone & aesthetic
+Neon-sci-fi apocalypse blended with industrial punk and cosmic ruin. Broken environments, empty halls, collapsed architecture. Scale is deliberately oppressive — the squad should feel small. Void creatures crawl through the world. The hero image is four dwarves silhouetted against a wasteland.
+1.5 Co-op philosophy
+Generous. Shared loot, revives, squad-lives-or-dies-together — until the very last moment. Extraction is the one mechanic where the squad's collective fate dissolves into individual outcomes. The squad is a composition of distinct builds, not four clones. Tech and augments naturally pull squadmates into different roles every run — not by class declaration, but by what their builds become.
+
+
+2. Core Gameplay Loop
+STATUS: LOCKED
+	
+
+2.1 Loop overview
+OVERRUN is wave-defense with terminal-driven build progression. The squad drops onto a themed map, holds against escalating waves, and unlocks tech augments at terminals between waves. Each map is an archetype that shapes which kinds of builds are possible.
+The full cycle:
+1. Drop in. Squad walks 20–30s to a fixed anchor.
+2. Wave 1 begins at the anchor.
+3. Wave ends. One terminal somewhere on the map becomes active.
+4. Squad navigates to active terminal (may have scouted its location during the breather).
+5. At the terminal, each player independently sees their own 3 augment options. Each picks one.
+6. Next wave begins. Loop repeats.
+7. After ~10 cycles (~20 min), Mission Control announces the tech-data threshold has been reached. Squad can extract or push deeper indefinitely.
+2.2 Drop-in (first 30 seconds)
+Tense breather. The squad lands together, walks toward a fixed anchor point, and the environment sells the world's scale and decay before any combat starts. Wind, distant machine sounds, the suggestion of being watched. By the time they reach the anchor, they should feel small.
+The anchor is a known designed defensive position — not chosen, not random. Wave 1 begins here. The squad's extraction pods are also visible from drop-in (see Section 3) — players know where home is from minute one.
+2.3 The terminal loop (between waves)
+2.3.1 Terminal discovery
+Multiple terminals exist on every map. Inactive terminals are visible if a player walks near them and can be discovered during the drop-in walk and during between-wave breathers. The next active terminal is not telegraphed until the previous wave ends.
+This means scouting between waves is speculation, not certainty. A squad that's found three terminals has three possible directions for the next wave; only one will light up. Knowledge of map geography becomes a meta-resource.
+2.3.2 Terminal activation
+When a wave ends, exactly one terminal becomes active. The squad converges on it. If they've scouted, they already know where it is and how to get there. If not, they're scrambling.
+2.3.3 The augment pick
+At the active terminal, each squadmate independently sees their own 3 augment options. Picks are simultaneous and personal — there's no voting, no friction over who gets what. Four parallel decision moments happen at once.
+Each player picks one. The augment is theirs for the rest of the run.
+2.4 Augment system
+2.4.1 Pool structure
+The game contains 300+ total augments. Each map curates a biased pool of approximately 60 augments matching its theme. Mining map = toughness, survivability, weapon-modifiers (e.g. double-shot). Other maps will skew toward other archetypes.
+At each terminal, a player rolls 3 augments from the active map's 60-pool. Rolls are independent per player. Overlaps between squadmates are allowed — two players can see and pick the same augment, each gets their own copy.
+2.4.2 Augment scope (squad interaction)
+Augments are tagged for at-a-glance reading on the pick card:
+* Personal — only affects you.
+* Aura — affects squadmates within range of you.
+* Squad — affects everyone in the squad regardless of position.
+* Conditional — triggers on a squad action (revives, kills, etc.).
+Suggested visual treatment: colour-coded badge on the augment card. Glance-readable in 2 seconds during a pick.
+2.4.3 Tradeoffs (no caps, no "upgrades")
+Every augment has a paired downside. There are no stacking caps. The math self-regulates: a player who stacks double-shot 4× has 16× the bullet output but also 16× the recoil, getting catapulted across the map every shot.
+This produces several effects:
+* Stacking is a real choice, not an automatic upgrade. Every duplicate compounds upside AND downside.
+* Builds have shape and personality — a 4× double-shot player is a character ("the maniac"), not a stat block.
+* Counter-augments become valuable — recoil dampener, mass boots, knockback resist. The pool self-balances through ecosystem design.
+* "Managing your own build's chaos" becomes a core skill expression.
+* Hard balance becomes soft balance — players paid for their power with their problems.
+2.4.4 Stacking within a player
+If a player picks the same augment twice in one run, it stacks. Triple-shot, then quad-shot, then quint-shot. Both upside and downside compound. Picking a duplicate is a real decision: deepen the build's identity, or diversify.
+2.4.5 Stacking across players
+Two squadmates picking the same augment each get their own personal copy. No squad-level interaction unless the augment is tagged Aura, Squad, or Conditional.
+2.5 The shape of a run
+Drop → walk to anchor → wave 1 → scout/breathe → terminal lights up → 4 parallel augment picks → wave 2 → ... × ~10 cycles → Mission Control announces threshold → extract or push.
+By cycle 6 or 7, the four players don't just have stats — they have personalities. The aura-buff support who can't shoot. The 6× double-shot maniac getting flung around the map. The tank who's so heavy they can't move but everything bounces off them. The glass cannon who one-shots elites but dies to a stiff breeze. Build-as-character is the design payoff.
+
+
+3. Push-vs-Extract Decision
+STATUS: LOCKED
+	
+
+The signature decision of the extraction roguelite. Once the squad reaches the map's tech-data threshold (~20 min), they choose: extract with what they've earned, or push deeper for more — knowing pushing means a longer fight back to their pods.
+3.1 Map completion
+Map completion is announced by Mission Control. Each map has a tech-data threshold (target ~10 terminals). When the threshold is hit, Mission Control radios in:
+"The tech data we were looking for has been received. You can stay for additional tech data, or extract — choice is yours."
+This is the push-vs-extract gate. There is no hard mechanical wall — the squad continues immediately, but the framing of the choice has now been made explicit by Mission Control's voice. This is the only point in the run where extraction is offered to the squad rather than simply available to them (see 3.6).
+Mission Control is the squad's diegetic voice — present every run, persistent across the meta-game. Per-map briefings reinforce map identity. Full character writeup in Section 16.
+3.2 Push-deeper changes
+When the squad stays past the threshold, two things change, and only two:
+3.2.1 Difficulty escalation
+Waves continue but the curve sharpens. Tougher enemies, denser spawns, new compositions and spawn behaviours that test parts of the build that base-game waves didn't. The escalation is steady, not a cliff — wave 11 is harder than wave 10, not lethal.
+3.2.2 Map state changes (the void reacts)
+The environment shifts to reflect that the squad has overstayed. Lighting fails. Ambient sound changes. Enemies emerge from new geography. Crystalline void-growth creeps onto previously-clean surfaces. Mission Control's comms degrade — static, cutouts, professionalism leaking out as the signal weakens. The map the squad has been holding for 20 minutes is no longer the same map.
+3.2.3 What does NOT change
+The augment pool stays the same map-curated 60. Loot quality stays the same. Terminal cadence stays the same. Push-deeper is not a content gate or reward upgrade — it is a stress test of the build the squad already has. The reward for pushing is finding out how far the build goes. The wipe is part of the point.
+3.3 Extraction mechanics
+Extraction is geographic, not procedural. Pods exist as part of the map from the moment the squad drops in — four pods at a fixed extraction site, one per player, identified by accent colour. There is no "call extraction" mechanic. Pods are always available; the squad simply has to reach them.
+3.3.1 Boarding
+A player at their pod can dive in at any time, including mid-wave. Boarding plays a 2–4 second animation: the player dives into the pod, it launches up a tether to the squad leader's ship in orbit. Once launched, that player has extracted with their loot.
+3.3.2 Independent fates
+Each pod that boards = that player extracts with their loot. Players who don't reach their pod (dead, downed too far, killed during the sprint) lose their loot. The squad does not share a fate at extraction. A run can end with three players home and one dead in the dirt.
+3.3.3 No final defensive wave
+Extraction is not a separate combat encounter. The "extraction wave" is whichever wave is happening when the squad chooses to leave — the obstacle to your pod is the world's current state, not a scripted final hold.
+3.3.4 Squad leader's ship
+The pods tether back to a vessel hovering above the map — the squad leader's ship. This is a separate worldbuilding element from Mission Control's console; the squad leader is a separate character/entity (TBD). The ship is the destination; Mission Control is the voice.
+3.3.5 Design intent
+Extraction is woven into the spatial layer of the run, not bolted on as a closing sequence. Players can see their pod from drop-in. They walk past it between waves. They know exactly how far they are from home at every moment.
+3.4 The pull to push
+OVERRUN deliberately offers no extrinsic rewards for pushing past completion — no rare loot tier, no exclusive augment pool, no prestige currency. The pull is purely intrinsic.
+By the time Mission Control announces completion, each squadmate has spent 20 minutes assembling an absurd, downside-laden build. The build has shape, identity, character. Extracting at wave 10 leaves the question of how far that build goes unanswered. Pushing deeper runs the experiment to its conclusion. Either the build keeps cohering against escalating pressure, or it falls apart spectacularly. Both are satisfying answers. A clean wave-10 extraction is the least satisfying outcome of the three.
+3.4.1 Design implications
+The choice to push must never be obviously correct. Because the reward is intrinsic (build narrative climax), pushing is only attractive if the squad is invested in their build. Squads with coherent, dangerous builds want to push. Squads with weak builds want to extract clean. The decision is a read on the run, not a min-max calculation.
+Different squadmates may want different things. Some want to push; others want out. Combined with independent extraction fates, this creates real conversation under pressure: agreement, disagreement, compromise, sacrifice. The push-vs-extract decision is a squad conversation, not a button press.
+Push-deeper waves must test the build, not just inflate numbers. New compositions, new spawn patterns, new spatial pressures — situations the squad's build has to react to, where the build's downsides become exposed. The 6× double-shot player finds out what happens when their flinging-recoil sends them into the void's reach. That exposure of downside is the entire content of "how far does my build go."
+Mission Control never advocates for pushing. She announces the choice neutrally, and her tone leans toward recommending extraction as conditions worsen. The pull belongs to the squad alone.
+3.5 Pressure to extract
+Pressure to extract is primarily geographic. The deeper the squad pushes, the further they are from their pods. Push-deeper is not just temporal pressure (harder waves) — it is spatial commitment. Every meter you advance into the map is a meter you'll have to fight back through to extract.
+Combined with the previously locked atmospheric pressures:
+* Difficulty escalation (3.2): waves past completion test the build's downsides as well as its upsides. Builds fail under sustained pressure.
+* Map state degradation (3.2): lighting fails, void crystallisation spreads, geometry compromises. The path back to the pods is not the same path the squad took out — areas that were safe are now hostile.
+* Mission Control's signal degrading: her transmissions worsen as the squad pushes deeper. Static, cutouts, dropouts. By late push-deeper, she may be barely audible. The squad's emotional anchor fades.
+* Mission Control's lines themselves: she does not advocate extraction (per 3.4), but her professional surface thins. Concern leaks through. The flickers — usually a reward — become warnings.
+* Per-player loot risk (3.3): every wave pushed, each player gambles their personal loot. The further they are from their pod, the more they're gambling.
+3.5.1 Design principle
+The pressure to extract is a layered atmospheric and geographic pressure, not a timer or meter. Squads decide to extract when they can feel it's time — through their build failing, the world degrading, Mission Control's voice fading, and the growing realisation that getting back to their pod is going to be a fight.
+3.6 Early extraction
+There is no early extraction as a separate concept. Extraction is always available — the pods exist from drop-in. Any player can sprint for their pod at any time, mid-wave or between, and dive in.
+The cost of leaving early is implicit: less contract progress, less loot, less of the run completed. The cost of leaving late is geographic: fighting back through worse waves and a degraded map to reach your pod.
+3.6.1 Bad runs have a graceful exit
+A squad getting wrecked at wave 4 doesn't have to wipe — they can sprint to their pods and bail. They take home whatever they collected, return to the lobby, queue up again. Wiping costs all run loot; bailing costs only the run's unrealised potential.
+3.6.2 Mission Control does not gatekeep
+She doesn't approve, deny, or comment on early extraction unprompted. The squad is contractually free to leave at any time — partial delivery is still delivery, partial pay is still pay. Her professional neutrality on this point reinforces the trained-detached surface.
+3.6.3 Design intent
+Extraction is always a viable choice and never a button-press event. The decision to leave is whatever spatial and tactical commitment the squad is willing to make in that moment to reach their pods. The push-vs-extract choice happens implicitly, continuously, throughout the entire run — but it is amplified at the post-completion announcement, when Mission Control frames the choice explicitly for the only time.
+
+
+4. Wave Pacing & Escalation
+STATUS: PLACEHOLDER
+	
+
+The rhythm of a run. Wave 1 should feel different from wave 5 should feel different from wave 10. This is where the feel of progression across the 20-minute arc gets tuned.
+4.1 Open questions
+[ TO DESIGN: How long is a single wave? Fixed time? Kill count? Until a condition? ]
+[ TO DESIGN: Do waves get longer, denser, or both as the run progresses? ]
+[ TO DESIGN: Are there "named" waves (boss waves, elite waves, swarm waves) or all the same shape? ]
+[ TO DESIGN: How much breather time between waves? (Augment pick + travel + scouting all happen here.) ]
+[ TO DESIGN: Does the map change as waves progress, or stay static? (E.g. terrain destruction, new spawn points, environmental hazards activating.) ]
+[ TO DESIGN: How aggressive is the difficulty curve given that augments are tradeoff-based and squads self-balance? ]
+[ TO DESIGN: Push-deeper waves: principles for designing waves that test the build, not just scale numbers. ]
+
+
+5. Death & Wipe Consequences
+STATUS: PLACEHOLDER
+	
+
+Squad wipe = loss of all run loot is locked. Sub-questions remain around individual death, revives, and what (if anything) carries over from a failed run.
+5.1 Open questions
+[ TO DESIGN: What happens when one squadmate dies mid-wave? Revives? Permadeath-for-the-run? Spectator mode? ]
+[ TO DESIGN: If revived, do players retain their augments or lose some? ]
+[ TO DESIGN: Is there a "last stand" / down-but-not-out mechanic? ]
+[ TO DESIGN: Character persists DnD-style, but does anything carry over from a failed run? XP? Lore unlocks? Memory? ]
+[ TO DESIGN: Interaction with per-player extraction: a downed player whose squad extracts without them — what's the experience? Lobby spectator (see Section 17)? ]
+
+
+6. Moment-to-Moment Combat Feel
+STATUS: PLACEHOLDER
+	
+
+How a single second of gunplay/melee/movement actually feels. The slice with the highest design risk — a 6× double-shot build is only fun if shooting itself is fun.
+6.1 Open questions
+[ TO DESIGN: Movement feel — fast and twitchy, weighty and grounded, somewhere in between? ]
+[ TO DESIGN: Weapon feel — recoil, reload, sound, hit-feedback design philosophy. ]
+[ TO DESIGN: Time-to-kill on basic enemies (this drives everything else). ]
+[ TO DESIGN: How the squad communicates positionally — pings, callouts, voice. ]
+[ TO DESIGN: Damage feedback — numbers, hitmarkers, screen effects? ]
+[ TO DESIGN: Movement augment downsides (e.g. mass boots that slow you) need to feel manageable, not punishing — design principles for that. ]
+
+
+7. Characters & Persistent Progression
+STATUS: PLACEHOLDER
+	
+
+Characters persist across runs DnD-style: bound weapons, attachments, cosmetics carry over. Loot inside a run is temporary. Mechanically, this needs unpacking.
+7.1 Open questions
+[ TO DESIGN: Are there distinct character classes/archetypes, or fully customisable characters? ]
+[ TO DESIGN: What does "bound weapon" mean mechanically? Is it the only weapon, or the starting weapon? ]
+[ TO DESIGN: How do attachments interact with augments? Is there overlap or are they separate systems? ]
+[ TO DESIGN: Cosmetics — earned how? Run-specific drops? Completion rewards? Push-deeper rewards? ]
+[ TO DESIGN: Does character power grow over time (XP, levels), or is power purely run-internal via augments? ]
+[ TO DESIGN: How do players acquire new bound weapons / loadout pieces? Does this come from successful extractions only? ]
+
+
+8. Maps
+STATUS: DRAFT
+	
+
+8.1 Maps as archetypes
+Locked: each map is a build archetype, not just a location. The map's curated 60-augment pool defines what kinds of builds the squad can construct. Players pick a map for the build fantasy they want to chase.
+8.2 Mining Map (reference example)
+Theme: industrial collapse, broken machinery, scale of equipment too big for the squad. Augment pool leans toward toughness, resistance, survivability, and unique tech weapon-modifiers like double-shot.
+[ TO DESIGN: Specific layout — anchor location, terminal positions, defensive choke points, sightlines. ]
+[ TO DESIGN: Specific objective for the mining map — what's the ~20-min completion condition? ]
+[ TO DESIGN: Push-deeper content — what's available past the objective, and how is it gated? ]
+[ TO DESIGN: Pod site location — where are the four extraction pods on the mining map? Surface elevator suggested in conversation. ]
+[ TO DESIGN: Pod site geometry — adjacent-but-distinct positions for four pods (e.g. four pods at the cardinal points of a defensive platform). ]
+8.3 Other maps
+[ TO DESIGN: Map slate — how many ship at launch? What archetype does each represent? ]
+[ TO DESIGN: Map-specific augment pools — design rule for how the 60 are curated from the 300. ]
+
+
+9. Enemies
+STATUS: PLACEHOLDER
+	
+
+Void creatures crawl through the world. Beyond that, undesigned.
+9.1 Open questions
+[ TO DESIGN: Enemy taxonomy — basic / elite / boss tiers? Behavioural archetypes? ]
+[ TO DESIGN: How enemies escalate within a run vs across the map's wave count. ]
+[ TO DESIGN: Are enemies map-specific, shared across maps, or a mix? ]
+[ TO DESIGN: Boss design — do all maps have bosses? At objective completion? On push-deeper? ]
+[ TO DESIGN: How enemies counter or pressure specific build archetypes (so a tank build still has problems to solve). ]
+
+
+10. Loot
+STATUS: PLACEHOLDER
+	
+
+Loot inside a run is temporary and lost on wipe (or by failure to reach a pod at extraction). Distinct from augments. Distinct from persistent character gear. The exact role of loot in the moment-to-moment economy is not yet defined.
+10.1 Open questions
+[ TO DESIGN: What is loot, mechanically? Currency? Consumables? Temporary stat boosts? Trade material? ]
+[ TO DESIGN: How does loot relate to augments? Does loot buy augment rerolls? Unlock terminals? Something else? ]
+[ TO DESIGN: How is loot shared in the squad? Free pickup? Designated owner? Squad pool? (Note: at extraction, loot is per-player — see 3.3.2.) ]
+[ TO DESIGN: What happens to loot on extraction — does it convert to persistent currency, cosmetics, or both? ]
+[ TO DESIGN: Contract pay structure: partial delivery = partial pay. How does this hook into the loot/currency system? ]
+
+
+11. UI / UX
+STATUS: PLACEHOLDER
+	
+
+11.1 Open questions
+[ TO DESIGN: Augment card UI — how the 3 options + scope tag + downside are presented in 2 seconds. ]
+[ TO DESIGN: HUD design — what's persistent, what's contextual. ]
+[ TO DESIGN: Squad-state UI — health/build/position of squadmates. ]
+[ TO DESIGN: Map / scouting UI — how players track terminal locations they've discovered. ]
+[ TO DESIGN: Pod indicator — players need to always know where their pod is, how far, and the route. Compass marker? Diegetic visual? On-map waypoint? ]
+[ TO DESIGN: Pings & callouts — non-voice coordination layer. ]
+[ TO DESIGN: Build-summary screen — does a player ever see their own assembled build mid-run? ]
+[ TO DESIGN: "Report in" comms button to Mission Control — UI placement, contextual response system. ]
+
+
+12. Technical
+STATUS: PLACEHOLDER
+	
+
+12.1 Locked
+* Engine: Godot.
+* Player count: 1–4 co-op.
+* Run length: ~20 min target completion, indefinite push possible.
+12.2 Open questions
+[ TO DESIGN: Networking model — listen server / dedicated / peer-to-peer? ]
+[ TO DESIGN: Persistence — local saves, cloud, both? ]
+[ TO DESIGN: Platform targets — PC first? Console plans? ]
+[ TO DESIGN: Crossplay strategy. ]
+[ TO DESIGN: Modding support — given the player profile and the sandbox philosophy, this could be a major lever. ]
+[ TO DESIGN: Lobby spectator mode — networking architecture for live POV streaming from active players to lobby (see Section 17). ]
+
+
+13. Content Targets (for v1.0 launch)
+STATUS: DRAFT
+	
+
+Provisional content scope, derived from the augment-pool architecture. Adjust as scoping reality lands.
+13.1 Augments
+* Lean launch: ~120 augments (covers 2 maps × 60-pool, with overlap).
+* Full launch: 300+ augments across the universe.
+* Each augment needs: upside, downside, scope tag, visual card, in-game effect.
+13.2 Maps
+[ TO DESIGN: How many maps at launch? Two-map minimum (mining + one other) seems lean enough; 3–4 gives a stronger archetype spread. ]
+13.3 Characters
+[ TO DESIGN: Character roster — how many? What differentiates them mechanically? ]
+13.4 Enemies
+[ TO DESIGN: Enemy roster scope — how many archetypes per map, how many shared. ]
+13.5 Voice content (Mission Control)
+[ TO DESIGN: Estimated line count: pre-drop briefings × maps, wave reactions, terminal announcements, completion announcement, push-deeper warnings, comms-degradation variants, report-in responses, post-extraction lines, near-wipe lines, exceptional-play flickers. Significant production scope — see Section 16. ]
+
+
+14. Top Open Design Questions
+STATUS: OPEN
+	
+
+Consolidated list of the highest-leverage unanswered questions, ordered roughly by how much downstream design they unblock:
+8. Wave pacing & escalation curve — defines the rhythm of every run.
+9. Combat feel principles — defines whether the augment system feels good moment-to-moment.
+10. What is loot, separate from augments? — defines the run-internal economy.
+11. How does individual death/revive work? — defines squad pressure mid-wave and the lobby-spectator handoff.
+12. Character archetypes and bound weapon mechanics — defines the persistent meta-loop.
+13. Enemy taxonomy and scaling — drives wave design and counter-augment relevance.
+14. Mission Control character writeup (Section 16) — has full conversation context, needs to be written into the GDD.
+15. Squad leader's ship & lobby behaviour (Section 17) — new worldbuilding surfaced during 3.1.
+
+
+15. Document Changelog
+STATUS: LOCKED
+
+
+v0.4 — HUD/UI palette reskin (amber-industrial replacing neon cyan/magenta). Pause menu full rewrite (gradient bg shader, amber border, RESUME + ABANDON RUN functional). Crosshair reskinned to match. Tutorial reskinned + hold-to-fill mechanic + spam-skip chaining + SPRINT step added. Augment pool expanded to 9 entries (Stone Slug, Drum Mag, Scattershot, Bulwark, Quickchamber, Seeker Rounds). Homing projectile system added (homing_strength on WeaponComponent, steering in projectile.gd via EnemyManager lookup). Two runtime crash fixes (CanvasLayer.modulate, _refresh_vitals freed-node guard).
+v0.3 — Section 18 (Session Start — Lobby Arrival Cinematic) added; most beats LOCKED. Set and Audio sub-sections DRAFT pending implementation. Cross-references to Sections 1, 16, and 17 added.
+v0.2 — Section 3 (Push-vs-Extract Decision) locked. All six 3.1 open questions answered. New flagged sections added (16, 17). Various cross-references updated.
+v0.1 — Initial draft. Locked: vision, core gameplay loop (drop-in, terminals, augment system, stacking, tradeoffs). All other sections placeholder or draft.
+
+
+16. Mission Control (character)
+STATUS: PLACEHOLDER
+	
+
+Character brief discussed in conversation; not yet written into the GDD. Key points to capture when this section is locked:
+[ TO DESIGN: Single recurring voice; female, ~28; military/contractor-trained system operator. Calm, professional, controlled, with subtle human warmth heavily suppressed by procedural discipline. ]
+[ TO DESIGN: Tonal core: "flicker" mechanic — rare moments where her warmth bleeds through the procedural surface. Players live for these. ]
+[ TO DESIGN: Asymmetric relationship: peer-aged, squad jokes with her, she doesn't joke back, she doesn't shut them down. The asymmetry is the relationship. ]
+[ TO DESIGN: Long-form loyalty arc — she's on the squad's side more than the people paying her. Committed: all voice lines written with this arc in mind from line one. ]
+[ TO DESIGN: Naming: callsign "Vega" suggested (military, also a star — fits cosmic-ruin aesthetic). First name held back as long-form reveal. ]
+[ TO DESIGN: Diegetic location: a console somewhere mundane and slightly unsettling — fluorescent-lit, mug, vitals on a screen. Mundane workplace contrasts with squad's cosmic ruin. ]
+[ TO DESIGN: Squad-to-Mission Control comms: player-triggered "report in" button. Contextual responses based on run state. ]
+[ TO DESIGN: Voice lines as tutorial: no UI popups; every system introduced through her. Briefings, threshold announcements, push-deeper warnings, extraction reactions, post-run lines. ]
+[ TO DESIGN: Production note: voice work is critical-path, not polish-pass. Single writer (or tightly-coordinated pair) for all lines, especially early. ]
+[ TO DESIGN: Same character all maps; map-specific briefings reinforce map identity through her. ]
+
+
+17. Squad Leader's Ship & Lobby
+STATUS: PLACEHOLDER
+	
+
+New worldbuilding element surfaced during Section 3 design. The squad's pods tether to the squad leader's ship in orbit above the map. The ship is the meta-game home base — the lobby.
+17.1 Open questions
+[ TO DESIGN: Who is the squad leader? Player avatar? NPC? Something else? ]
+[ TO DESIGN: Is the ship customisable? Owned by the squad? Provided by the contractor? ]
+[ TO DESIGN: Visual design — interior layout, where the squad gathers between runs. ]
+[ TO DESIGN: Ship vs Mission Control's location — the ship is where the squad is, Mission Control's console is somewhere else (mundane, planetside or otherwise). What does the squad see of her, if anything? ]
+17.2 Lobby behaviour (locked, awaiting writeup)
+* Extracted players return to the lobby and wait for the rest of the squad.
+* In the lobby they can: watch the live POV from any active squadmate's perspective on a TV; manage their loadout (gear, attachments, cosmetics).
+* They CANNOT redeploy into the active run. Once extracted, the run is over for them.
+* Dead players (whose pod didn't board) presumably also return to the lobby on wipe / end-of-run; details TBD.
+17.3 Open questions for lobby
+[ TO DESIGN: How does the lobby feel? Cramped? Industrial? Personal? What's the tone? ]
+[ TO DESIGN: Spectator UI — how does watching live POVs work? Can the spectator chat? React? ]
+[ TO DESIGN: Loadout management — only between runs, or can it be tweaked while waiting too? ]
+[ TO DESIGN: Are there other social activities in the lobby (e.g. reviewing past runs, modifying characters, browsing cosmetics)? ]
+________________
+
+
+18. Session Start — Lobby Arrival Cinematic
+STATUS: LOCKED
+	A short cinematic that plays every time the player enters the lobby from the main menu. The opening 30 seconds of every session. Establishes the world, introduces Mission Control’s voice, and seamlessly hands control to the player inside the lobby (which is their jumpship). Most sub-sections below are LOCKED with the open sub-questions tagged.
+18.1 Purpose
+STATUS: LOCKED
+	The cinematic is the first impression of every session. Its job is to (a) establish the lobby as the player’s personal jumpship, (b) introduce Mission Control’s voice as the diegetic narrator of the meta-game, (c) set up the drop tubes as the visible “other contractors enter here” mechanism, and (d) hand off to gameplay seamlessly without a hard cut. It is not a “meet the hero” moment — the player character is deliberately under-characterized, framed only as a slice (shoulder, torso, holstered sidearm).
+18.2 Fiction
+STATUS: LOCKED
+	The player is a contractor. The lobby is their personal jumpship. Drop tubes at the front of the ship are the embarkation point for other contractors who join the session. “Booting up” the ship — slapping the wall plate to initialize the drop tubes — is the diegetic act of signalling to dispatch that this contractor is open for business. Mission Control is dispatch; she works for the contracting corporation, not for the player. Her early-game tone toward the player is procedural and impersonal. “Welcome back, contractor” is how she addresses every contractor on her roster, not a personal greeting.
+18.3 Set
+STATUS: DRAFT
+	The drop tube room sits at the front of the jumpship, attached to the lounge. Three vertical drop tubes are mounted in a slab on the front wall, with green status pads at the base of each tube — inert/dim at cinematic start. A wall plate (orange disc, black surround, mounted at chest height for a dwarf) is positioned on the side wall to the right of the tubes, between the tubes and the lounge entry. Set materials are industrial — dark teal walls, copper-toned tube exteriors, grated metal floor.
+[ TO DESIGN: Skybox / window placement — space must be visible from the cinematic frame to establish that the ship is in orbit. Options include a window behind/above the tubes or a skylight overhead. ]
+[ TO DESIGN: Specific set dressing within the cinematic frame to reinforce the “lived-in workplace” tone. Cabling, scuffs, posters, signage. ]
+18.4 Camera
+STATUS: LOCKED
+	Single static cinematic frame. Camera is positioned in the lounge area, looking across the room toward the drop tube wall. Frame is composed wide enough to capture all three drop tubes, the wall plate, and the player character’s walk path. The camera does not move during the cinematic body — it only moves during the handoff at the end (see 18.8).
+18.5 Player character (cinematic only)
+STATUS: LOCKED
+	The player character enters frame from screen-left, originating from the lounge area off-camera. Visible portion is a slice only: shoulder, side of torso, tank top, combat pants, holstered secondary weapon at the hip. Face and head are not in frame. The character is in casual lobby attire (not combat gear) — combat kitting happens later when the player physically enters a drop tube to deploy.
+The character walks across the frame on a path that passes the wall plate, strikes the plate with an open palm in stride, and stops just past it facing forward toward the drop tubes. They remain standing still in this position, framed as if waiting to see whether other contractors will come through the tubes.
+[ TO DESIGN: Whether the player character has any micromovement during the wait pose (slight head turn, weight shift, scanning the tubes) or remains perfectly still. Currently undetermined. ]
+[ TO DESIGN: Two outfits required long-term — a casual lobby outfit (this cinematic) and a combat outfit (gameplay deployment). Outfit swap mechanic for tube entry is out of scope for this section. ]
+18.6 Audio
+STATUS: DRAFT
+	Jumpship ambience runs throughout the cinematic (low hum, distant mechanical creaks, occasional subtle ship-creak). Booting-up sounds layer in as systems warm. Mission Control’s voice fires approximately 0.5 seconds after the player character strikes the wall plate.
+Mission Control line: “Drop pods initialized. Welcome back, contractor.”
+MC’s delivery is procedural and impersonal in early-game — same line, no variation, no warmth. This is consistent with the procedural-surface tone established in Section 16. The line is a candidate for variation in late-game once MC’s loyalty arc has progressed.
+[ TO DESIGN: Exact ambient audio palette. ]
+[ TO DESIGN: Whether MC’s line varies from session start one onward, or is identical every session. ]
+18.7 LED choreography
+STATUS: LOCKED
+	The three green status pads at the base of the drop tubes activate sequentially, synchronized to specific phonemes within MC’s line. Each pad fades up rather than snapping on, suggesting systems warming rather than instant electronic response.
+Trigger map:
+* “Drop” — pad 1 fades on
+* “pods” — pad 2 fades on
+* “initialized” — pad 3 fades on
+The phoneme sync intentionally does not light pads on the verb-stem syllables but on consonant-cluster downbeats, giving the lighting a percussive feel relative to the spoken line.
+18.8 Camera handoff
+STATUS: LOCKED
+	After the wall plate strike, the player character stops moving and stands still for approximately 1 second. During this window, the camera glides smoothly from the static cinematic position to the gameplay 3rd-person spring-arm position behind the player character. The handoff is interpolated, not cut. The transition completes within the 1-second pause.
+The player gains full input control at the end of the glide. By default they are facing the drop tubes (toward the front of the ship). The player’s first action — turn around to walk into the lounge, or wait at the tubes — is the first moment of authored gameplay.
+A small overlap window exists where the cinematic camera is finishing its glide while input becomes active. This is acceptable; in the rare case the player whips their mouse during the overlap, the resulting view jolt is a discoverable seam, not a bug.
+18.9 Tone
+STATUS: LOCKED
+	Routine. Lived-in. The opening is deliberately not heroic. The player is a contractor doing what they always do — boot up the ship, signal availability to other contractors, wait. The slap of the wall plate is muscle memory, the LED choreography is reflexive, MC’s greeting is corporate. The drama of OVERRUN is what happens later, downstairs in the broken world. The lobby cinematic is the player’s quiet workday beginning.
+This tone is mandatory. Future cinematic variants (e.g. once MC’s loyalty arc has progressed) may break this tone; the opening does not.
+18.10 Production order
+STATUS: DRAFT
+	Cinematic build is decomposed into work packages with rough dependency order: Set (drop tube room geometry, materials, tube + status pad assets, wall plate); Camera (locked cinematic frame, handoff interpolation rig); Animation (player character walk-in path, palm-strike overlay, idle wait pose); Lighting (status pad fade-ups, ambient lighting, supporting boot-up light cues); Audio (jumpship ambient bed, boot sounds, MC voice line; placeholder acceptable for first pass); UI (lobby UI elements fade in over the player character’s wait pose so that UI is fully present by the time control hands off).
+[ TO DESIGN: Whether the cinematic plays in full every session, plays in full first-launch only, or supports a skip after first viewing. Frequent-play friction is the relevant design tension. ]
+18.11 Cross-references
+STATUS: LOCKED
+	This section interacts with:
+* Section 1 (Vision & Tone) — establishes the workplace-vs-cosmic-ruin contrast that grounds the larger tone.
+* Section 16 (Mission Control) — first introduction of MC’s voice; her procedural-surface early-game tone is defined here in practice.
+* Section 17 (Squad Leader’s Ship & Lobby) — this cinematic is the player’s recurring introduction to the lobby every session. The drop tubes referenced here are the same drop tubes the player will deploy into and extract through (per Section 3).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROJECT OVERRUN — TODO
+Deferred work, accumulated across sessions. Not a sprint plan — a reference list. Order within sections is rough priority (top = more important / more painful).
+________________
+
+
+🐛 Bugs (annoying but not blocking)
+* [x] Crosshair pops up during cinematic — fixed: crosshair.gd now initialises _time_since_activity = IDLE_TIMEOUT so it starts hidden and only appears on first fire/ADS.
+* [x] _flush_events: ref_count <= 0 spam (~117/run) — fixed: projectile.gd now uses call_deferred("queue_free") instead of queue_free() so Area3D events are flushed before the node is torn down. (Was mislabelled as an audio pooling issue — no audio exists on projectiles.)
+* [x] Pause menu crash on Esc — CanvasLayer does not inherit CanvasItem so has no .modulate property. Fixed: added set_dim(alpha) method to hud.gd that sets modulate.a on each direct CanvasItem child; pause_menu.gd calls it via .call("set_dim", ...).
+* [x] _refresh_vitals "previously freed" crash — viewport resize frees old bar ColorRects but _process still held stale references. Fixed: is_instance_valid guard at top of _refresh_vitals exits early if fill nodes are freed.
+* [ ] Cyclic resource error on res://scenes/ui/Terminal.tscn::hlbp6. Real warning, real fix needed — investigate when touching terminal code next.
+* [ ] Camera spring arm weirdness looking down — flagged but not investigated.
+* [ ] Pause menu vs augment UI mouse mode — both force mouse mode; possible conflict when both are open. Test and resolve.
+* [ ] dwarf.fbx invalid UID — one warning at startup. Reimport the model.
+________________
+
+
+🧹 Code cleanup (debug prints, unused params)
+Sweep these when next touching the file. Low priority on their own.
+* [ ] enemy.gd — remove prints in _on_target_changed; also remove the temporary debug print in _move_toward_target from today's gravity debugging
+* [ ] friends_manager.gd — remove debug prints
+* [ ] player_account.gd — remove debug prints + fix player_ready signal signature + add file read error handling
+* [ ] player_spawner.gd — remove debug print
+* [ ] world.gd — debug prints sweep
+* [ ] terminal.gd — debug prints sweep
+* [ ] squad_hud.gd — remove duplicate visible = false in _on_session_left
+* [ ] character_body_3d.gd — remove debug HP print in _process, add input_locked guards to _input and _physics_process, fix double unregister_player (one in _on_died, one in _exit_tree — keep _exit_tree as safety net but add comment)
+* [ ] augment_max_hp.gd — apply or remove the move_speed_penalty exported field
+* [ ] weapon_component.gd + weapon_holder.gd — respect input_locked flag
+________________
+
+
+🏗️ Systems (real work, deferred)
+* [ ] Transition system — proper scene-transition framework instead of change_scene_to_file calls. Touches: _on_downed in character_body_3d, mission_terminal._launch_mission, pause menu, main menu. Required before the loading cinematic can be properly built.
+* [ ] Loading cinematic (GDD Section 18) — drop-tube wall-plate strike sequence: fade to black → jumpship boot sounds → camera pan of drop tubes → player walks in from screen-left, strikes wall plate mid-stride → MC voice line "Drop pods initialized. Welcome back, contractor." → LED pads fade up sequentially synced to phonemes ("Drop"/"pods"/"initialized") → camera glides to third-person spring arm → player gains input. Tone: routine, muscle memory, workplace.
+* [ ] player_data.gd disk persistence — when a save system exists.
+* [ ] Co-op terminal redesign — current terminal is shared across squad. Per-player terminal needs design + implementation. Each player should independently see/use the terminal during the safe window.
+* [ ] Co-op spawn points — world.gd currently has one PlayerSpawn. Need multiple anchored spawns for 1-4 player drops.
+________________
+
+
+🎨 v0.4 GDD locked work, not yet built
+This is the next big push after polish.
+* [x] Wave state machine refactor — wave_manager.gd is now a proper FSM with EXPLORE/SCOUTING/COMBAT/TECH transitions per locked Section 4. ScoutingTrigger placed via group, scout enemy variant implemented. HUD listens to state_changed signal.
+* [x] Scout enemy variant — scout_enemy.gd + scout_enemy.tscn built: cyan capsule, 30HP, approach/retreat FSM, no AggroComponent, no EnemyManager registration.
+* [x] Proximity triggers — scouting_trigger.gd + scouting_trigger.tscn: Area3D armed per cycle by WaveManager, deferred trigger call to avoid physics lock. ⚠️ Still needs placing in world.tscn (designer task).
+* [x] Weapon alert system — suppressed: bool export on WeaponComponent, notify_weapon_fired(suppressed) called on every shot, WaveManager triggers COMBAT on unsuppressed shot during SCOUTING.
+* [x] HUD reskin — cyan shield (#00c8f0), magenta HP (#ff2060), weapon slot cards bottom-right (active 62px + secondary 44px), Bebas Neue names, ammo dots. WeaponComponent gained weapon_name + weapon_tag exports.
+* [x] Squad mini-cards — top-left, 96×52 landscape cards, player-color initial box, magenta HP bar, DOWN label node (hidden), Bebas Neue initials. ⚠️ Weapons need weapon_name/weapon_tag populated in Inspector.
+* [x] Pause menu layer fix + reskin — full rewrite: layer=20, gradient background via canvas_item shader (dark amber-brown #1a0f08), 440×560px panel left-anchored with #b86a1c amber border, Bebas Neue throughout, RESUME (amber) and ABANDON RUN (burnt orange) functional, SETTINGS/CONTROLS styled placeholders. HUD dims to 40% alpha on open via set_dim(); restored on close.
+* [x] HUD palette reskin — changed from neon cyan/magenta to amber-industrial: HP bar #c44a2f (burnt orange), shield bar #e89a35 (amber), value text warm off-white, weapon accent amber. All state colors pulled into orange-amber family. Matches pause menu palette.
+* [x] Crosshair reskin — COLOR_DEFAULT #e8e8f0 (warm white), ammo dots amber/dark-empty, BASELINE_OPACITY 0.65, all elements scale with viewport height. Idle fade preserved at 75%.
+* [x] Tutorial reskin + mechanics — full rewrite: amber/brown palette, Bebas Neue, hold-to-fill bar (hold WASD/LMB to fill, not count presses), spam-skip chaining (overflow carries to next step; ≥1.0 overflow skips it), green flash on step complete, sprint step added (Shift + direction key). Mouse step 75% longer, walk step 50% longer. 7 steps total.
+* [x] New augments (pool now 9 total) — Stone Slug (×2 dmg / ×0.5 fire rate), Drum Mag (×2 mag / ×1.5 reload), Scattershot (+4 pellets / ×0.6 dmg), Bulwark (+20 armor / ×0.6 shield regen), Quickchamber (×0.5 reload / ×0.7 mag), Seeker Rounds (120°/sec homing / ×0.6 projectile speed).
+* [x] Homing projectile system — homing_strength: float export on WeaponComponent (0 = off). projectile.gd acquires nearest enemy via EnemyManager.enemies each physics frame, steers velocity using angle-capped slerp. Seeker Rounds augment sets it to 120°/sec.
+* [ ] Bleedout state UI — surface the 10s downed timer (currently dead code) as a "DOWN — Ns" countdown before lobby kick. Touch _on_downed in character_body_3d.gd to defer scene change to _on_died.
+* [ ] Augment data refactor — add category (WEAPON/AUGMENT/AURA), adjective, noun, slot_capped, stack_cap_within_slot, weapon_part_touches, weapon_part_color, weapon_sticker_anchor, sticker_icon, aura_world_effect fields to existing .tres files. Migration of fire_rate, kickback, max_hp, and all 6 new augments.
+* [ ] Tech terminal UI rebuild — full implementation of locked dwarf-industrial spec: 3 weapon + 3 augment + 1 aura grid, look + E to open, soft pause, other players visible behind translucent panel, no Vega during terminal, Bebas Neue + monospace, bracket-corner frames, film grain. See Section 11 of GDD v0.4.
+* [ ] Weapon icon system — segmented shotgun silhouette (6 parts: stock, receiver, pump/bolt, barrel, muzzle, trigger guard), part recoloring by tune-type tech, sticker anchors for proc-type tech. Biggest single piece of HUD work.
+* [ ] Aura slot system — 3-slot HUD surface near vitals, in-world particle/ground effects that radiate from character.
+* [ ] Build naming system — adjective+noun tag generation from tech stacks (per GDD Section 20). Requires augment data refactor first.
+________________
+
+
+🤔 Design questions parked
+* [ ] Iron Skin's "TODO slower movement" — implement or remove.
+* [ ] Wave size formula — current mini(int(pow(2, wave_number - 1)), MAX_WAVE_SIZE) makes wave 1 = 1 enemy. Consider wave_number * 3 for better playtest texture, or design proper scaling curve.
+________________
+
+
+🚫 Explicit non-goals (don't accidentally start these)
+These were brainstormed in past sessions and explicitly parked. Each is months of work.
+* Galaxy map system
+* Faction reputation
+* Career-arc tracking
+* Procedural room generator
+* Devoid faction storyline branching
+These come after the core loop ships, not before.
+
+
+Page  of

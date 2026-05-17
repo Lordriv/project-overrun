@@ -23,7 +23,7 @@ func _ready() -> void:
 	if not SessionManager.session_players.is_empty():
 		_on_players_updated(SessionManager.session_players)
 
-	WaveManager.start_run(enemy_spawn)
+	WaveManager.begin_explore(enemy_spawn)
 
 	# NEW: start tutorial after world fully loads
 	if not PlayerData.tutorial_completed:

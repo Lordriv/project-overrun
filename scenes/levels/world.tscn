@@ -68,6 +68,7 @@
 [ext_resource type="ArrayMesh" uid="uid://o8p5riucpxeh" path="res://assets/scifi interior/Window_Wall_SideA.obj" id="66_t546j"]
 [ext_resource type="ArrayMesh" uid="uid://0ft5repgm238" path="res://assets/scifi interior/Window_Wall_SideB.obj" id="67_j0578"]
 [ext_resource type="PackedScene" uid="uid://bmaoa1k2ca37w" path="res://scenes/ui/Terminal.tscn" id="68_velq8"]
+[ext_resource type="PackedScene" path="res://scenes/levels/scouting_trigger.tscn" id="69_hgk6l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nnsk1"]
 sky_top_color = Color(0.03137255, 0, 0.1254902, 1)
@@ -516,3 +517,11 @@ mesh = ExtResource("67_j0578")
 
 [node name="Terminal" parent="." unique_id=1246593666 instance=ExtResource("68_velq8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.898136, 20.831823, -1.9409285)
+
+[node name="ScoutingTrigger" parent="." unique_id=556677889 instance=ExtResource("69_hgk6l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.27499, 20.837137, -0.18750572)
+
+[node name="CollisionShape3D" parent="ScoutingTrigger" index="0" unique_id=667788990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.80444336, 0, 0.5849352)
+
+[editable path="ScoutingTrigger"]

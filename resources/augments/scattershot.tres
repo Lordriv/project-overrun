@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AugmentScattershot" format=3 uid="uid://djlcyq50p7hfe"]
+
+[ext_resource type="Script" uid="uid://e8p4rc6ot0v3zs" path="res://scripts/augments/augment_scattershot.gd" id="1_sctsht"]
+
+[resource]
+script = ExtResource("1_sctsht")
+id = &"scattershot"
+display_name = "Scattershot"
+description_upside = "+4 Pellets Per Shot"
+description_downside = "-40% Damage Per Pellet"
+target = 1
+metadata/_custom_type_script = "uid://e8p4rc6ot0v3zs"

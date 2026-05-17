@@ -48,6 +48,10 @@ func play(
 	body.input_locked = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
+	var crosshair := _character.get_node_or_null("Crosshair")
+	if crosshair:
+		crosshair.visible = false
+
 	_cinematic_cam.make_current()
 
 	body.global_position = _start_marker.global_position
@@ -77,6 +81,8 @@ func play(
 
 	# --- Step 4: camera glide ---
 	await _glide_camera_to_springarm()
+	if crosshair:
+		crosshair.visible = true
 
 	# --- Step 5: unlock input ---
 	await get_tree().create_timer(INPUT_DELAY).timeout

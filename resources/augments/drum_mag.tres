@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AugmentDrumMag" format=3 uid="uid://da7488e820b7w"]
+
+[ext_resource type="Script" uid="uid://d7o3qb5ns9u2gd" path="res://scripts/augments/augment_drum_mag.gd" id="1_drmmg"]
+
+[resource]
+script = ExtResource("1_drmmg")
+id = &"drum_mag"
+display_name = "Drum Mag"
+description_upside = "x2 Magazine Capacity"
+description_downside = "+50% Reload Time"
+target = 1
+metadata/_custom_type_script = "uid://d7o3qb5ns9u2gd"

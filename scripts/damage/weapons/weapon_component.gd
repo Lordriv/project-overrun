@@ -14,7 +14,11 @@ class_name WeaponComponent
 @export var pellets_per_shot: int = 1
 @export var max_aim_distance: float = 1000.0
 @export var knockback_per_shot: float = 0.0  # m/s impulse applied to shooter per shot
+@export var homing_strength: float = 0.0    # degrees/sec turn rate; 0 = no homing
 @export var firing_chevron_offset: float = 15.0
+@export var suppressed: bool = false
+@export var weapon_name: String = ""
+@export var weapon_tag: String = ""
 
 # --- Ammo & reload ---
 @export var magazine_size: int = 30
@@ -101,10 +105,14 @@ func _fire() -> void:
 		var projectile = projectile_scene.instantiate()
 		get_tree().current_scene.add_child(projectile)
 		projectile.launch(muzzle_pos, pellet_direction, projectile_speed, projectile_damage)
+		if homing_strength > 0.0:
+			projectile.homing_strength = homing_strength
 	
 	current_ammo -= 1
 	_fire_cooldown = 1.0 / fire_rate
-	
+
+	WaveManager.notify_weapon_fired(suppressed)
+
 	# Apply knockback to the shooter (if any)
 	if knockback_per_shot > 0.0:
 		var shooter := _get_shooter()

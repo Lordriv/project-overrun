@@ -13,6 +13,7 @@ var _player_in_range: Node = null
 
 
 func _ready() -> void:
+	add_to_group("tech_terminal")
 	WaveManager.wave_completed.connect(_on_wave_completed)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
@@ -51,12 +52,11 @@ func _on_body_exited(body: Node3D) -> void:
 func _use_terminal() -> void:
 	if not is_active or _player_in_range == null:
 		return
-	WaveManager.pause_run()
 	_hide_prompt()
 	var ui := AugmentPickUI.open(_player_in_range)
 	await ui.augment_chosen
-	WaveManager.resume_run()
 	is_active = false
+	WaveManager.exit_tech()
 	terminal_used.emit()
 
 

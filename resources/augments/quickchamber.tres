@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AugmentQuickchamber" format=3 uid="uid://bq4hlwi1q1ik7"]
+
+[ext_resource type="Script" uid="uid://g0r6te8qv2x5bs" path="res://scripts/augments/augment_quickchamber.gd" id="1_qkchm"]
+
+[resource]
+script = ExtResource("1_qkchm")
+id = &"quickchamber"
+display_name = "Quickchamber"
+description_upside = "-50% Reload Time"
+description_downside = "-30% Magazine Size"
+target = 1
+metadata/_custom_type_script = "uid://g0r6te8qv2x5bs"

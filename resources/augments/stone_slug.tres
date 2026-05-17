@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AugmentStoneSlug" format=3 uid="uid://bh1c3dn7qp2xt"]
+
+[ext_resource type="Script" uid="uid://c6n2pa4mr8t1x" path="res://scripts/augments/augment_stone_slug.gd" id="1_stslg"]
+
+[resource]
+script = ExtResource("1_stslg")
+id = &"stone_slug"
+display_name = "Stone Slug"
+description_upside = "+100% Damage Per Bullet"
+description_downside = "-50% Fire Rate"
+target = 1
+metadata/_custom_type_script = "uid://c6n2pa4mr8t1x"

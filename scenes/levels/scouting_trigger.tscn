@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dt7l5vm3n8ys6"]
+
+[ext_resource type="Script" uid="uid://b9cpw2e6fmk4r" path="res://scripts/systems/scouting_trigger.gd" id="1_trig"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trig"]
+size = Vector3(10, 4, 2)
+
+[node name="ScoutingTrigger" type="Area3D" unique_id=556677889]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_trig")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=667788990]
+shape = SubResource("BoxShape3D_trig")
