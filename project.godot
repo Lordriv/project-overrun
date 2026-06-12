@@ -28,6 +28,7 @@ PlayerSpawner="*uid://yfevqesh0ya1"
 WaveManager="*uid://bpmilnjq01tud"
 SquadHUD="*uid://dna4rwwkb6awt"
 AugmentPool="*uid://b82rsvwpfawbx"
+SettingsManager="*res://scripts/systems/settings_manager.gd"
 
 [editor_plugins]
 

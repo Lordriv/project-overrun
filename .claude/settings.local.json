@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\coope\\\\Documents\\\\project-overrun\" -Force | Select-Object Name, @{Name=\"Type\";Expression={if\\($_.PSIsContainer\\){\"DIR\"}else{\"FILE\"}}} | Format-Table -AutoSize)"
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\coope\\\\Documents\\\\project-overrun\" -Force | Select-Object Name, @{Name=\"Type\";Expression={if\\($_.PSIsContainer\\){\"DIR\"}else{\"FILE\"}}} | Format-Table -AutoSize)",
+      "Bash(Select-String -Path \"C:\\\\Users\\\\coope\\\\Documents\\\\project-overrun\\\\docs\\\\OVERRUN_GDD_v0_3.txt\" -Pattern \"TODO|todo\" -Context 2,0)",
+      "Bash(Select-Object -First 60)",
+      "Bash(claude doctor *)",
+      "Bash(echo \"EXIT:$?\")",
+      "PowerShell($godot = \"C:\\\\Program Files \\(x86\\)\\\\Steam\\\\steamapps\\\\common\\\\Godot Engine\\\\godot.windows.opt.tools.64.exe\"; & $godot --path \"C:\\\\Users\\\\coope\\\\Documents\\\\project-overrun\" --check-only --headless 2>&1 | Select-Object -First 80)",
+      "PowerShell(Start-Process -FilePath $godot -ArgumentList \"--path `\"C:\\\\Users\\\\coope\\\\Documents\\\\project-overrun`\"\" -PassThru)",
+      "PowerShell($godot = \"C:\\\\Program Files \\(x86\\)\\\\Steam\\\\steamapps\\\\common\\\\Godot Engine\\\\godot.windows.opt.tools.64.exe\")"
     ]
   }
 }

@@ -15,15 +15,19 @@ var dash_direction = Vector3.ZERO
 var knockback_timer: float = 0.0
 const KNOCKBACK_LOCKOUT: float = 0.25
 
-var mouse_sensitivity_x = 0.003
-var mouse_sensitivity_y = 0.002
-var camera_pitch = 0.0
+var _mouse_sens_x: float = 0.003
+var _mouse_sens_y: float = 0.002
+var camera_pitch: float  = 0.0
+
+var _shake_trauma: float = 0.0
+var _shake_scale:  float = 1.0
 
 var idle_timer = randf_range(10.0, 20.0)
 var playing_variant = false
 var input_locked: bool = false
 
-@onready var spring_arm = $SpringArm3D
+@onready var spring_arm            = $SpringArm3D
+@onready var _camera: Camera3D     = $SpringArm3D/Camera3D
 @onready var health: HealthComponent = $HealthComponent
 @onready var anim_player: AnimationPlayer = $Dwarf/AnimationPlayer
 
@@ -35,6 +39,12 @@ func _ready():
 	EnemyManager.register_player(self)
 	PlayerData.apply_to_character(self)
 	anim_player.animation_finished.connect(_on_animation_finished)
+	_apply_sensitivity(float(SettingsManager.get_value("video/mouse_sensitivity")))
+	SettingsManager.mouse_sensitivity_changed.connect(_apply_sensitivity)
+	_camera.fov = float(SettingsManager.get_value("video/fov"))
+	SettingsManager.fov_changed.connect(func(v: float) -> void: _camera.fov = v)
+	_shake_scale = float(SettingsManager.get_value("video/screen_shake")) / 100.0
+	SettingsManager.screen_shake_changed.connect(func(v: float) -> void: _shake_scale = v / 100.0)
 	var crosshair_node = get_parent().get_node_or_null("Crosshair")
 	var weapon_holder = $WeaponHolder
 	if crosshair_node and weapon_holder:
@@ -64,8 +74,8 @@ func _input(event):
 	if input_locked:
 		return
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		rotate_y(-event.relative.x * mouse_sensitivity_x)
-		camera_pitch -= event.relative.y * mouse_sensitivity_y
+		rotate_y(-event.relative.x * _mouse_sens_x)
+		camera_pitch -= event.relative.y * _mouse_sens_y
 		camera_pitch = clamp(camera_pitch, -1.2, 0.8)
 		spring_arm.rotation.x = camera_pitch
 
@@ -122,6 +132,16 @@ func _physics_process(delta):
 
 	move_and_slide()
 	_update_animation()
+	_process_shake(delta)
+
+
+func _apply_sensitivity(value: float) -> void:
+	_mouse_sens_x = value * 0.0006
+	_mouse_sens_y = value * 0.0004
+
+
+func apply_screen_shake(trauma: float) -> void:
+	_shake_trauma = min(_shake_trauma + trauma, 1.0)
 
 
 func apply_knockback(kick_direction: Vector3, force: float) -> void:
@@ -132,6 +152,17 @@ func apply_knockback(kick_direction: Vector3, force: float) -> void:
 	velocity.y += kick_direction.y * force * vertical_dampening
 	velocity.z += kick_direction.z * force
 	knockback_timer = KNOCKBACK_LOCKOUT
+
+
+func _process_shake(delta: float) -> void:
+	if _shake_trauma > 0.0:
+		_shake_trauma = max(_shake_trauma - delta * 2.5, 0.0)
+		var amount := pow(_shake_trauma, 2) * _shake_scale * 0.06
+		_camera.h_offset = randf_range(-amount, amount)
+		_camera.v_offset = randf_range(-amount, amount)
+	elif _camera.h_offset != 0.0 or _camera.v_offset != 0.0:
+		_camera.h_offset = 0.0
+		_camera.v_offset = 0.0
 
 
 func _update_animation():

@@ -68,7 +68,7 @@
 [ext_resource type="ArrayMesh" uid="uid://o8p5riucpxeh" path="res://assets/scifi interior/Window_Wall_SideA.obj" id="66_t546j"]
 [ext_resource type="ArrayMesh" uid="uid://0ft5repgm238" path="res://assets/scifi interior/Window_Wall_SideB.obj" id="67_j0578"]
 [ext_resource type="PackedScene" uid="uid://bmaoa1k2ca37w" path="res://scenes/ui/Terminal.tscn" id="68_velq8"]
-[ext_resource type="PackedScene" path="res://scenes/levels/scouting_trigger.tscn" id="69_hgk6l"]
+[ext_resource type="PackedScene" uid="uid://dt7l5vm3n8ys6" path="res://scenes/levels/scouting_trigger.tscn" id="69_hgk6l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nnsk1"]
 sky_top_color = Color(0.03137255, 0, 0.1254902, 1)
